@@ -87,7 +87,6 @@ bool ledstate = true;
 int a;  //LED strip
 
 /////////////////////////////////////////////////////////////////////////Setup///////////////////////////////////////////
-
 void setup() {
   tft.reset();
   Serial.begin(9600);
@@ -111,13 +110,8 @@ void setup() {
   // start splash screen
   Start();
 }
-
 /////////////////////////////////////////////////////////////////////loooooooooooop///////////////////////////////////////////
 void loop() {
-
-  int DB = analogRead(Sound);
-
-
 
   tft.setRotation(0);
 
@@ -339,30 +333,27 @@ void loop() {
         break;
       case SOUNDS:
 
-    if (checkButtonPressed(touch_x, touch_y, 10, 10, 100, 20)) {
-      // Main Menu button pressed,
-      drawMainMenu();
-      currentMenu = MAIN_MENU;
-    } else if (checkButtonPressed(touch_x, touch_y, 140, 10, 200, 20)) {
-      // Option Menu button pressed,
-      drawOptionMenu();
-      currentMenu = OPTION_MENU;
-    } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
-      // Back button pressed,
-      currentMenu = SUBMENU_2;
+        if (checkButtonPressed(touch_x, touch_y, 10, 10, 100, 20)) {
+          // Main Menu button pressed,
+          drawMainMenu();
+          currentMenu = MAIN_MENU;
+        } else if (checkButtonPressed(touch_x, touch_y, 140, 10, 200, 20)) {
+          // Option Menu button pressed,
+          drawOptionMenu();
+          currentMenu = OPTION_MENU;
+        } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
+          // Back button pressed,
+          currentMenu = SUBMENU_2;
+        }
+        break;
     }
-    break;
-}
-  if (ledstate) {
-    fill_color = tft.color565(red, green, blue);
-  } else {
-    fill_color = BLACK;
-  }
-
+    if (ledstate) {
+      fill_color = tft.color565(red, green, blue);
+    } else {
+      fill_color = BLACK;
+    }
   }
 }
-
-
 void Start() {
   tft.setRotation(0);
   tft.fillScreen(BLACK);
@@ -388,8 +379,6 @@ void Start() {
   delay(500);
   tft.print("Start\n");
 }
-
-
 void drawMainMenu() {
   tft.setRotation(0);
   tft.fillScreen(BLACK);
@@ -412,8 +401,6 @@ void drawMainMenu() {
 
   drawBackButton("Exit", 60, 300, 60, 20, 10);
 }
-
-
 void drawOptionMenu() {
   tft.setRotation(0);
   tft.fillScreen(BLACK);
@@ -435,15 +422,13 @@ void drawOptionMenu() {
   drawButton("Option 4", 20, 210, 200, 40);
   drawBackButton("Back", 60, 300, 60, 20, 10);
 }
-
-
 void drawSubMenu(const char* label) {
   tft.setRotation(0);
   tft.fillScreen(BLACK);
   tft.drawRect(0, 0, 240, 320, RED);
   tft.fillRoundRect(10, 10, 220, 300, 10, WHITE);
   tft.setTextColor(RED);
-  tft.setCursor(10, 10);
+  tft.setCursor(20, 10);
   tft.setTextSize(1);
   tft.print("Main Menu");
 
@@ -461,8 +446,6 @@ void drawSubMenu(const char* label) {
   drawBlueButton("Led Off", 20, 110, 200, 40, 20);
   drawBackButton("Back", 60, 300, 60, 20, 10);
 }
-
-
 void drawRGB() {
   tft.fillScreen(BLACK);
   tft.drawRect(0, 0, 240, 320, RED);
@@ -484,8 +467,6 @@ void drawRGB() {
   drawBackButton("Back", 60, 300, 60, 20, 10);
   drawOffButton("Off", 160, 300, 60, 20, 10);
 }
-
-
 void drawRGBButton(const char* label, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t radius) {
   tft.fillRoundRect(x, y, width / 3 * 1, height, radius, RED);
   tft.fillRoundRect(x, y, width / 3 * 2, height, radius, GREEN);
@@ -501,8 +482,6 @@ void drawRGBButton(const char* label, uint16_t x, uint16_t y, uint16_t width, ui
   tft.setCursor(labelX, labelY);
   tft.print(label);
 }
-
-
 void drawBlueButton(const char* label, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t radius) {
   tft.fillRoundRect(x, y, width, height, radius, BLUE);
   tft.setTextColor(WHITE);
@@ -515,7 +494,6 @@ void drawBlueButton(const char* label, uint16_t x, uint16_t y, uint16_t width, u
   tft.setCursor(labelX, labelY);
   tft.print(label);
 }
-
 void drawOffButton(const char* label, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t radius) {
   tft.fillRoundRect(x, y, width, height, radius, RED);
   tft.setTextColor(GREEN);
@@ -528,7 +506,6 @@ void drawOffButton(const char* label, uint16_t x, uint16_t y, uint16_t width, ui
   tft.setCursor(labelX, labelY);
   tft.print(label);
 }
-
 void drawBackButton(const char* label, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint16_t radius) {
   tft.fillRoundRect(x, y, width, height, radius, RED);
   tft.setTextColor(GREEN);
@@ -541,8 +518,6 @@ void drawBackButton(const char* label, uint16_t x, uint16_t y, uint16_t width, u
   tft.setCursor(labelX, labelY);
   tft.print(label);
 }
-
-
 void drawButton(const char* label, uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
   tft.fillRect(x, y, width, height, GREEN);
   tft.setTextColor(RED);
@@ -555,29 +530,25 @@ void drawButton(const char* label, uint16_t x, uint16_t y, uint16_t width, uint1
   tft.setCursor(labelX, labelY);
   tft.print(label);
 }
-
-
 void ledon() {
   analogWrite(led, 255);
 }
-
-
 void ledoff() {
   analogWrite(led, 0);
 }
-
 void Sounds() {
+  int DB = analogRead(Sound);
 
   tft.fillScreen(BLACK);
   tft.drawRect(0, 0, 240, 320, RED);
   tft.fillRoundRect(10, 10, 220, 300, 10, WHITE);
   tft.setTextColor(YELLOW);
-  tft.setCursor(10, 10);
+  tft.setCursor(20, 10);
   tft.setTextSize(2);
   tft.print("Main Menu");
 
   tft.setTextColor(RED);
-  tft.setCursor(140, 10);
+  tft.setCursor(150, 10);
   tft.setTextSize(1);
   tft.print("Options");
 
@@ -595,7 +566,6 @@ void Sounds() {
     delay(1000);
   }
 }
-
 void game1() {
 
   tft.fillScreen(BLACK);
@@ -608,8 +578,6 @@ void game1() {
 
   drawBackButton("Back", 60, 300, 60, 20, 10);
 }
-
-
 void game2() {
   tft.fillScreen(BLACK);
   tft.setTextColor(RED);
@@ -619,8 +587,6 @@ void game2() {
 
   drawBackButton("Back", 60, 300, 60, 20, 10);
 }
-
-
 void game3() {
   tft.fillScreen(BLACK);
   tft.setTextColor(RED);
@@ -630,8 +596,6 @@ void game3() {
 
   drawBackButton("Back", 60, 300, 60, 20, 10);
 }
-
-
 void game4() {
   tft.fillScreen(BLACK);
   tft.setTextColor(RED);

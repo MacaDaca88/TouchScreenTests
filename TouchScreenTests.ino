@@ -186,6 +186,10 @@ void loop() {
           // Game 4 button pressed,
           game4();
           currentMenu = GAMES;
+        } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
+          // exit button pressed,
+          Start();
+          currentMenu = START;
         } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
           // Back button pressed,
           Start();
@@ -215,9 +219,17 @@ void loop() {
           // Option 3 button pressed,
           Sounds();
           currentMenu = SOUNDS;
-        } else if (checkButtonPressed(touch_x, touch_y, 20, 210, 200, 40)) {
-          // Option 4 button pressed,
-        } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 30, 210, 200, 40)) {
+          // Option 4 button pressed,else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
+          // Back button pressed,
+          Start();
+          currentMenu = START;
+
+        } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
+          // exit button pressed,
+          Start();
+          currentMenu = START;
+        } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
           // Back button pressed,
           drawMainMenu();
           currentMenu = MAIN_MENU;
@@ -241,7 +253,11 @@ void loop() {
         } else if (checkButtonPressed(touch_x, touch_y, 10, 110, 200, 40)) {
           // led off button pressed,
           ledoff();
-        } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
+          // exit button pressed,
+          Start();
+          currentMenu = START;
+        } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
           // Back button pressed,
           drawOptionMenu();
           currentMenu = OPTION_MENU;
@@ -273,7 +289,11 @@ void loop() {
           analogWrite(green_pin, 255);
           analogWrite(blue_pin, 255);
           currentMenu = OPTION_MENU;
-        } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
+          // exit button pressed,
+          Start();
+          currentMenu = START;
+        } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
           // Back button pressed,
           drawOptionMenu();
           currentMenu = OPTION_MENU;
@@ -283,25 +303,25 @@ void loop() {
 
       case RGB_STRIP:
 
-        if (checkButtonPressed(touch_x, touch_y, 30, 50, 30, 180)) {
+        if (checkButtonPressed(touch_x, touch_y, 30, 50, 30, 170)) {
           // red slider
           for (int a = 0; a < 8; a++) {                      // data count for how many leds inline (change to suit how many leds you are using)
             strip.setPixelColor(a, strip.Color(255, 0, 0));  // set STRIP to red
           }
           strip.show();  // needed to show changes
 
-          red = map(touch_y, 50, 240, 255, 0);
+          red = map(touch_y, 50, 220, 255, 0);
           red_old_pos = red_position;
           red_position = touch_y;
 
-          tft.fillRoundRect(30, red_old_pos, 30, 10, 10, RED);
+          tft.fillRoundRect(30, 50, 30, 180, 10, RED);
           tft.fillRoundRect(30, red_position, 30, 10, 10, YELLOW);
 
           analogWrite(red_pin, red_position);
           tft.setTextColor(RED);
-          tft.setCursor(40, 250);
+          tft.setCursor(30, 250);
           tft.setTextSize(2);
-          tft.fillRect(40, 250, 30, 20, WHITE);
+          tft.fillRect(30, 250, 40, 20, WHITE);
           tft.print(red);
 
           fill_color = tft.color565(red_position, green_position, blue_position);
@@ -310,25 +330,25 @@ void loop() {
           Serial.print("red = ");
           Serial.println(red);
           //////////////////////////////////////////////////////
-        } else if (checkButtonPressed(touch_x, touch_y, 100, 50, 30, 180)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 100, 50, 30, 170)) {
           // green slider
           for (int a = 0; a < 8; a++) {                      // data count for how many leds inline (change to suit how many leds you are using)
             strip.setPixelColor(a, strip.Color(0, 255, 0));  // set STRIP to green
           }
           strip.show();  // needed to show changes
 
-          green = map(touch_y, 50, 240, 255, 0);
+          green = map(touch_y, 50, 220, 255, 0);
           green_old_pos = green_position;
           green_position = touch_y;
 
-          tft.fillRoundRect(100, green_old_pos, 30, 10, 10, GREEN);
+          tft.fillRoundRect(100, 50, 30, 180, 10, GREEN);
           tft.fillRoundRect(100, green_position, 30, 10, 10, YELLOW);
 
           analogWrite(green_pin, green_position);
           tft.setTextColor(GREEN);
-          tft.setCursor(110, 250);
+          tft.setCursor(100, 250);
           tft.setTextSize(2);
-          tft.fillRect(110, 250, 30, 20, WHITE);
+          tft.fillRect(100, 250, 40, 20, WHITE);
           tft.print(green);
 
           fill_color = tft.color565(red_position, green_position, blue_position);
@@ -337,24 +357,24 @@ void loop() {
           Serial.print("green = ");
           Serial.println(green);
           //////////////////////////////////////////////////////
-        } else if (checkButtonPressed(touch_x, touch_y, 170, 50, 30, 180)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 170, 50, 30, 170)) {
           // blue slider
           for (int a = 0; a < 8; a++) {                       // data count for how many leds inline (change to suit how many leds you are using)
             strip.setPixelColor(a, strip.Color(0, 0, blue));  // set STRIP to blue
           }
           strip.show();  // needed to show changes
-          blue = map(touch_y, 50, 240, 255, 0);
+          blue = map(touch_y, 50, 220, 255, 0);
           blue_old_pos = blue_position;
           blue_position = touch_y;
 
-          tft.fillRoundRect(170, blue_old_pos, 30, 10, 10, BLUE);
+          tft.fillRoundRect(170, 50, 30, 180, 10, BLUE);
           tft.fillRoundRect(170, blue_position, 30, 10, 10, YELLOW);
 
           analogWrite(blue_pin, blue_position);
           tft.setTextColor(BLUE);
-          tft.setCursor(180, 250);
+          tft.setCursor(170, 250);
           tft.setTextSize(2);
-          tft.fillRect(180, 250, 30, 20, WHITE);
+          tft.fillRect(170, 250, 40, 20, WHITE);
           tft.print(blue);
 
           fill_color = tft.color565(red_position, green_position, blue_position);
@@ -364,13 +384,13 @@ void loop() {
           Serial.print("blue = ");
           Serial.println(blue);
           //////////////////////////////////////////////////////
-        } else if (checkButtonPressed(touch_x, touch_y, 70, 10, 225, 30)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 70, 10, 210, 30)) {
           // brightness button pressed,
           RGBbrightness = brightness;
 
-          if (touch_x > 70 && touch_x < 225) {
+          if (touch_x > 70 && touch_x < 210) {
             if (touch_y > 10 && touch_y < 30) {
-              brightness = map(touch_x, 70, 225, 0, 255);
+              brightness = map(touch_x, 70, 210, 0, 255);
               RGBbrightness = map(brightness, 255, 0, 0, 255);
 
               brightness_old = brightness;
@@ -386,8 +406,7 @@ void loop() {
             Serial.print("RGBbrightness =  ");
             Serial.println(RGBbrightness);
             //////////////////////////////////////////////////////
-            tft.fillRoundRect(brightness_old, 10, 10, 20, 10, WHITE);
-            tft.fillRoundRect(70, 10, 150, 15, 10, BLACK);
+            tft.fillRoundRect(70, 10, 150, 10, 10, BLACK);
             tft.fillRoundRect(brightness, 10, 10, 20, 10, YELLOW);
           }
         } else if (checkButtonPressed(touch_x, touch_y, 160, 300, 60, 20)) {
@@ -400,14 +419,33 @@ void loop() {
           analogWrite(green_pin, 255);
           analogWrite(blue_pin, 255);
           tft.fillRect(10, 10, 50, 20, WHITE);
-          tft.fillRoundRect(30, red_old_pos, 30, 10, 10, RED);
-          tft.fillRoundRect(30, 50, 30, 10, 10, YELLOW);
-          tft.fillRoundRect(100, green_old_pos, 30, 10, 10, GREEN);
-          tft.fillRoundRect(100, 50, 30, 10, 10, YELLOW);
-          tft.fillRoundRect(170, blue_old_pos, 30, 10, 10, BLUE);
-          tft.fillRoundRect(170, 50, 30, 10, 10, YELLOW);
+          tft.fillRoundRect(30, 50, 30, 180, 10, RED);
+          tft.setTextColor(RED);
+          tft.setCursor(30, 250);
+          tft.setTextSize(2);
+          tft.fillRect(30, 250, 40, 20, WHITE);
+          tft.print("0");
+          tft.fillRoundRect(30, 220, 30, 10, 10, YELLOW);
+          tft.fillRoundRect(100, 50, 30, 180, 10, GREEN);
+          tft.setTextColor(GREEN);
+          tft.setCursor(100, 250);
+          tft.setTextSize(2);
+          tft.fillRect(100, 250, 40, 20, WHITE);
+          tft.print("0");
+          tft.fillRoundRect(100, 220, 30, 10, 10, YELLOW);
+          tft.fillRoundRect(170, 50, 30, 180, 10, BLUE);
+          tft.setTextColor(BLUE);
+          tft.setCursor(175, 250);
+          tft.setTextSize(2);
+          tft.fillRect(170, 250, 40, 20, WHITE);
+          tft.print("0");
+          tft.fillRoundRect(170, 220, 30, 10, 10, YELLOW);
 
-        } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
+          // exit button pressed,
+          Start();
+          currentMenu = START;
+        } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
           // Back button pressed,
           currentMenu = SUBMENU_2;
         }
@@ -454,7 +492,11 @@ void loop() {
           // Option Menu button pressed,
           drawOptionMenu();
           currentMenu = OPTION_MENU;
-        } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
+          // exit button pressed,
+          Start();
+          currentMenu = START;
+        } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
           // Back button pressed,
           currentMenu = SUBMENU_2;
         }
@@ -508,7 +550,7 @@ void drawMainMenu() {
   drawButton("Game 3", 20, 160, 200, 40);
   drawButton("Game 4", 20, 210, 200, 40);
 
-  drawBackButton("Exit", 60, 300, 60, 20, 10);
+  drawBackButton("Exit", 20, 300, 60, 20, 10);
 }
 void drawOptionMenu() {
   tft.setRotation(0);
@@ -529,7 +571,9 @@ void drawOptionMenu() {
   drawRGBButton("RGB Srip", 20, 110, 200, 40, 0);
   drawButton("Sensors", 20, 160, 200, 40);
   drawButton("Option 4", 20, 210, 200, 40);
-  drawBackButton("Back", 60, 300, 60, 20, 10);
+
+  drawBackButton("Exit", 20, 300, 60, 20, 10);
+  drawBackButton("Back", 90, 300, 60, 20, 10);
 }
 void drawSubMenu(const char* label) {
   tft.setRotation(0);
@@ -565,28 +609,24 @@ void drawRGB() {
   tft.fillRoundRect(30, 50, 30, 180, 10, RED);
   tft.fillRoundRect(30, red_position, 30, 10, 10, YELLOW);
   tft.setTextColor(RED);
-  tft.setCursor(40, 250);
+  tft.setCursor(35, 250);
   tft.setTextSize(2);
   tft.print(red_position);
   tft.fillRoundRect(100, 50, 30, 180, 10, GREEN);
   tft.fillRoundRect(100, green_position, 30, 10, 10, YELLOW);
   tft.setTextColor(GREEN);
-  tft.setCursor(110, 250);
+  tft.setCursor(105, 250);
   tft.setTextSize(2);
   tft.print(green_position);
   tft.fillRoundRect(170, 50, 30, 180, 10, BLUE);
   tft.fillRoundRect(170, blue_position, 30, 10, 10, YELLOW);
   tft.setTextColor(BLUE);
-  tft.setCursor(180, 250);
+  tft.setCursor(170, 250);
   tft.setTextSize(2);
   tft.print(blue_position);
 
-  tft.drawFastVLine(45, 60, 150, WHITE);
-  tft.drawFastVLine(115, 60, 150, WHITE);
-  tft.drawFastVLine(185, 60, 150, WHITE);
-
-  tft.fillRoundRect(70, 10, 150, 15, 10, BLACK);
-  tft.fillRoundRect(brightness, 10, 10, 20, 10, YELLOW);
+  tft.fillRoundRect(70, 15, 150, 15, 10, BLACK);
+  tft.fillRoundRect(brightness, 15, 10, 20, 10, YELLOW);
 
   drawBackButton("Exit", 20, 288, 60, 20, 10);
   drawBackButton("Back", 90, 288, 60, 20, 10);
@@ -675,8 +715,6 @@ void Sounds() {
   tft.setTextSize(2);
   tft.print("Options");
 
-  drawBackButton("Back", 60, 300, 60, 20, 10);
-
   tft.setTextColor(BLACK);
   tft.setCursor(10, 280);
   tft.setTextSize(1);
@@ -696,6 +734,8 @@ void Sounds() {
   tft.setCursor(150, 280);
   tft.setTextSize(2);
   tft.print(DB);
+  drawBackButton("Exit", 20, 300, 60, 20, 10);
+  drawBackButton("Back", 90, 300, 60, 20, 10);
 }
 void game1() {
 

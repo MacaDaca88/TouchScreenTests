@@ -337,13 +337,28 @@ void loop() {
           currentMenu = SUBMENU_2;
         }
         break;
-    }
-  }
+      case SOUNDS:
 
+    if (checkButtonPressed(touch_x, touch_y, 10, 10, 100, 20)) {
+      // Main Menu button pressed,
+      drawMainMenu();
+      currentMenu = MAIN_MENU;
+    } else if (checkButtonPressed(touch_x, touch_y, 140, 10, 200, 20)) {
+      // Option Menu button pressed,
+      drawOptionMenu();
+      currentMenu = OPTION_MENU;
+    } else if (checkButtonPressed(touch_x, touch_y, 60, 300, 60, 20)) {
+      // Back button pressed,
+      currentMenu = SUBMENU_2;
+    }
+    break;
+}
   if (ledstate) {
     fill_color = tft.color565(red, green, blue);
   } else {
     fill_color = BLACK;
+  }
+
   }
 }
 
@@ -566,15 +581,16 @@ void Sounds() {
   tft.setTextSize(1);
   tft.print("Options");
 
-  
-    Serial.print("Sound Meter Reading  = ");
-    Serial.println(DB);
-    tft.fillRect(150, 280, 35, 25, WHITE);
-    tft.setTextColor(BLACK);
-    tft.setCursor(150, 280);
-    tft.setTextSize(2);
-    tft.print(DB);
-    delay(50);
+  drawBackButton("Back", 60, 300, 60, 20, 10);
+
+  Serial.print("Sound Meter Reading  = ");
+  Serial.println(DB);
+  tft.fillRect(150, 280, 35, 25, WHITE);
+  tft.setTextColor(BLACK);
+  tft.setCursor(150, 280);
+  tft.setTextSize(2);
+  tft.print(DB);
+  delay(50);
   if (DB > 650) {
     delay(1000);
   }

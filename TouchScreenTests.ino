@@ -156,6 +156,8 @@ void loop() {
     Serial.print(touch_x);
     Serial.print("\tTouch Y: ");
     Serial.println(touch_y);
+    Serial.println("CurrentMenu  = ");
+    Serial.println(currentMenu);
     //////////////////////////////////////////////////////
 
     switch (currentMenu) {
@@ -526,36 +528,47 @@ void loop() {
           pen_new = pen;
           tft.drawPixel(touch_x, touch_y, pen_new);
           //////////////// Debuging Switch on or off ////////////
-
           Serial.print("pen = ");
           Serial.println(pen);
           Serial.print("pen_new  = ");
           Serial.print(pen_new);
-
           ////////////////////////////////////////////////////////
-        } else if (checkButtonPressed(touch_x, touch_y, 30, 270, 10, 10)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 20, 270, 20, 20)) {
           // red button pressed,
           currentMenu = PEN_RED;
+          tft.fillCircle(30, 275, 3, BLACK);
 
           //////////////// Debuging Switch on or off ////////////
           Serial.print("pen = ");
           Serial.println(pen);
           Serial.print("pen_new  = ");
           Serial.println(pen_new);
-            ////////////////////////////////////////////////////////
+         ////////////////////////////////////////////////////////
 
           case PEN_RED:
             if (touch_y > 15 && touch_y < 270 && touch_x > 15 && touch_x < 230) {
               tft.drawPixel(touch_x, touch_y, RED);
-              tft.drawCircle(30, 270, 3, BLACK);
+            } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
+              // exit button pressed,
+              Start();
+              currentMenu = START;
+            } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
+              // Back button pressed,
+              currentMenu = SUBMENU_2;
+            } else if (checkButtonPressed(touch_x, touch_y, 160, 300, 60, 20)) {
+              // RESET button pressed,
+              tft.fillRoundRect(10, 10, 225, 250, 10, BLACK);
+              delay(500);
+              tft.fillRoundRect(10, 10, 225, 250, 10, WHITE);
+              tft.drawRect(15, 15, 215, 270, BLACK);
             }
             if (checkButtonPressed(touch_x, touch_y, 150, 270, 10, 10)) {
               currentMenu = PEN_CIRCLE;
+              tft.fillCircle(150, 270, 3, RED);
 
               case PEN_CIRCLE:
-                if (touch_y > 15 && touch_y < 270 && touch_x > 15 && touch_x < 230) {
-                  tft.drawRect(touch_x, touch_y, 10, 10, RED);
-                  tft.drawCircle(150, 270, 3, BLACK);
+                if (touch_y > 15 && touch_y < 260 && touch_x > 15 && touch_x < 230) {
+                  tft.fillCircle(touch_x, touch_y, 5, RED);
                   currentMenu = PEN_CIRCLE;
                 } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
                   // exit button pressed,
@@ -563,22 +576,45 @@ void loop() {
                   currentMenu = START;
                 } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
                   // Back button pressed,
-                  currentMenu = SUBMENU_2;
+                  tft.fillCircle(150, 270, 3, WHITE);
+
+                  currentMenu = PEN_RED;
                 } else if (checkButtonPressed(touch_x, touch_y, 160, 300, 60, 20)) {
                   // RESET button pressed,
-                  tft.fillRoundRect(10, 10, 225, 250, 10, BLACK);
+                  tft.fillRoundRect(10, 10, 225, 260, 10, BLACK);
                   delay(500);
-                  tft.fillRoundRect(10, 10, 225, 250, 10, WHITE);
+                  tft.fillRoundRect(10, 10, 225, 260, 10, WHITE);
                   tft.drawRect(15, 15, 215, 270, BLACK);
                 }
                 break;
             }
             break;
 
-        } else if (checkButtonPressed(touch_x, touch_y, 150, 270, 10, 10)) {
+        } else if (checkButtonPressed(touch_x, touch_y, 130, 270, 10, 10)) {
           // Rect button pressed,
+          currentMenu = PEN_RECT;
+          tft.fillRect(130, 270, 10, 10, BLACK);
 
-          tft.drawRect(touch_x, touch_y, 10, 10, RED);
+          case PEN_RECT:
+            if (touch_y > 15 && touch_y < 260 && touch_x > 15 && touch_x < 230) {
+              tft.fillRect(touch_x, touch_y, 10, 10, BLACK);
+              currentMenu = PEN_RECT;
+            } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
+              // exit button pressed,
+              Start();
+              currentMenu = START;
+            } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
+              // Back button pressed,
+              currentMenu = PEN_RED;
+            } else if (checkButtonPressed(touch_x, touch_y, 160, 300, 60, 20)) {
+              // RESET button pressed,
+              tft.fillRoundRect(10, 10, 225, 260, 10, BLACK);
+              delay(500);
+              tft.fillRoundRect(10, 10, 225, 260, 10, WHITE);
+              tft.drawRect(15, 15, 215, 270, BLACK);
+            }
+            break;
+
         } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
           // exit button pressed,
           Start();
@@ -591,25 +627,6 @@ void loop() {
           tft.fillRoundRect(10, 10, 225, 250, 10, BLACK);
           delay(500);
           tft.fillRoundRect(10, 10, 225, 250, 10, WHITE);
-          tft.drawRect(15, 15, 215, 270, BLACK);
-        }
-        break;
-
-      case PEN_PIXEL:
-        if (touch_y > 15 && touch_y < 270 && touch_x > 15 && touch_x < 230) {
-          tft.drawPixel(touch_x, touch_y, BLACK);
-        } else if (checkButtonPressed(touch_x, touch_y, 20, 300, 60, 20)) {
-          // exit button pressed,
-          Start();
-          currentMenu = START;
-        } else if (checkButtonPressed(touch_x, touch_y, 90, 300, 60, 20)) {
-          // Back button pressed,
-          currentMenu = SUBMENU_2;
-        } else if (checkButtonPressed(touch_x, touch_y, 160, 300, 60, 20)) {
-          // RESET button pressed,
-          tft.fillRoundRect(10, 10, 225, 270, 10, BLACK);
-          delay(500);
-          tft.fillRoundRect(10, 10, 225, 270, 10, WHITE);
           tft.drawRect(15, 15, 215, 270, BLACK);
         }
         break;
